@@ -215,6 +215,8 @@ window.jsFunctions = {
         else {
             await init();
         }
+
+        return true;
     },
     initScanner: async function (dotnetRef, videoId, selectId, overlayId) {
         if (recognizer == null) {
