@@ -1,0 +1,62 @@
+﻿@page "/mrzreader"
+@inject IJSRuntime JSRuntime
+
+@* <InputFile OnChange="LoadImage" /> *@
+<button @onclick="ReadMrz">Load file</button>
+<p class="p-result">@result</p>
+
+<div id="imageview">
+    <img id="image" />
+    <canvas id="overlay"></canvas>
+</div>
+
+@code {
+    String result = "";
+    private DotNetObjectReference<MrzReader>? objRef;
+
+    @* https://docs.microsoft.com/en-us/aspnet/core/blazor/images?view=aspnetcore-6.0 *@
+    private async Task LoadImage(InputFileChangeEventArgs e)
+    {
+        result = "";
+
+        var imageFile = e.File;
+        var jsImageStream = imageFile.OpenReadStream(1024 * 1024 * 20);
+        var dotnetImageStream = new DotNetStreamReference(jsImageStream);
+        await JSRuntime.InvokeAsync<byte[]>("jsFunctions.setImageUsingStreaming", objRef, "overlay",
+        "image", dotnetImageStream);
+    }
+
+    protected override void OnInitialized()
+    {
+        @* objRef = DotNetObjectReference.Create(this); *@
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            objRef = DotNetObjectReference.Create(this);
+            await JSRuntime.InvokeAsync<Boolean>("jsFunctions.initReader", objRef);
+        }
+    }
+
+
+    public async Task ReadMrz()
+    {
+        await JSRuntime.InvokeVoidAsync(
+        "jsFunctions.selectFile", objRef, "overlay", "image");
+    }
+
+    [JSInvokable]
+    public void ReturnMrzResultsAsync(String text)
+    {
+        result = text;
+        StateHasChanged();
+    }
+
+    public void Dispose()
+    {
+        objRef?.Dispose();
+    }
+}
+
