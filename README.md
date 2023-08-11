@@ -16,3 +16,5 @@ This is a .NET Blazor WebAssembly project that can read and scan **MRZ (Machine 
     ```
     dotnet watch run
     ```
+
+    ![dotnet-blazor-mrz-scanner](https://github.com/yushulx/dotnet-blazor-MRZ-scanner/assets/2202306/1869a6db-1d49-4835-bceb-af0f35c747c7)
