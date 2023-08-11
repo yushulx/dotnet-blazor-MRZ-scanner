@@ -182,6 +182,7 @@ window.jsFunctions = {
         dotnetHelper = dotnetRef;
         if (recognizer != null) {
             recognizer.stopScanning();
+            await recognizer.updateRuntimeSettingsFromString("MRZ");
         }
         else {
             await init();
@@ -204,6 +205,7 @@ window.jsFunctions = {
             enhancer = await Dynamsoft.DCE.CameraEnhancer.createInstance();
             await enhancer.setUIElement(document.getElementById(videoId));
             await recognizer.setImageSource(enhancer, { });
+            await recognizer.updateRuntimeSettingsFromString("video-mrz");
             await recognizer.startScanning(true);
             let cameras = await enhancer.getAllCameras();
             listCameras(cameras);
