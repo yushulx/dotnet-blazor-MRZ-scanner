@@ -13,7 +13,7 @@
     font-size: 18px;
     font-weight: bold;
     color: #fff;
-    background-color: #4CAF50;
+    background-color: #FE8E14;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -21,7 +21,7 @@
 }
 
 .btn:hover[b-yje69up5hq] {
-    background-color: #357a38;
+    background-color: #FEA543;
 }
 /* /Pages/MrzReader.razor.rz.scp.css */
 #imageview[b-tp9v4ioquk] {
@@ -47,18 +47,30 @@
 }
 
 .mrz-result[b-tp9v4ioquk] {
-    /* position: relative; */
     color: red;
     font-style: italic;
-    /* position: absolute;  
-    z-index: 1000;
-    top: 10px;
-    left: 10px; */
 }
 
 .container[b-tp9v4ioquk] {
-    display: flex; /* Set the container to use flexbox */
+    display: flex; 
     margin: 0;
+}
+
+.btn[b-tp9v4ioquk] {
+    margin: 0 10px;
+    padding: 10px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #FE8E14;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn:hover[b-tp9v4ioquk] {
+    background-color: #FEA543;
 }
 /* /Pages/MrzScanner.razor.rz.scp.css */
 #videoview[b-i0bi81942m] {
@@ -86,18 +98,30 @@
 }
 
 .mrz-result[b-i0bi81942m] {
-    /* position: relative; */
     color: red;
     font-style: italic;
-    /* position: absolute;  
-    z-index: 1000;
-    top: 10px;
-    left: 10px; */
 }
 
 .container[b-i0bi81942m] {
-    display: flex; /* Set the container to use flexbox */
+    display: flex; 
     margin: 0;
+}
+
+.btn[b-i0bi81942m] {
+    margin: 0 10px;
+    padding: 10px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #FE8E14;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn:hover[b-i0bi81942m] {
+    background-color: #FEA543;
 }
 /* /Shared/MainLayout.razor.rz.scp.css */
 .page[b-2gmd0sqqlj] {
