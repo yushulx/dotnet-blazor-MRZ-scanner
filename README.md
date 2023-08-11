@@ -1,6 +1,8 @@
 # .NET Blazor MRZ Reader & Scanner
 This is a .NET Blazor WebAssembly project that can read and scan **MRZ (Machine Readable Zone)** from a passport or ID card using [Dynamsoft Label Recognizer SDK](https://www.npmjs.com/package/dynamsoft-label-recognizer).
 
+https://github.com/yushulx/dotnet-blazor-MRZ-scanner/assets/2202306/af19cdb7-9588-4223-9b1b-aa0a64c1b889
+
 ## Try Online Demo
 [https://yushulx.me/dotnet-blazor-MRZ-scanner/](https://yushulx.me/dotnet-blazor-MRZ-scanner/)
 
