@@ -1,24 +1,28 @@
 ﻿@page "/mrzscanner"
 @inject IJSRuntime JSRuntime
-@* <p class="p-result">@result</p> *@
+@using Dynamsoft
+
 <div class="select">
     <label for="videoSource">Video source: </label>
     <select id="videoSource"></select>
 </div>
 
-<div id="videoview">
-    <div class="dce-video-container" id="videoContainer"></div>
-    <canvas id="overlay"></canvas>
+<div class="container">
+    <div id="videoview">
+        <div class="dce-video-container" id="videoContainer"></div>
+        <canvas id="overlay"></canvas>
+    </div>
+    <div class="mrz-result">@result</div>
 </div>
 
 @code {
-    String result = "";
+    private MarkupString result = new MarkupString("");
     private DotNetObjectReference<MrzScanner>? objRef;
 
     protected override void OnInitialized()
     {
         //objRef = DotNetObjectReference.Create(this);
-        
+
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -32,9 +36,12 @@
 
 
     [JSInvokable]
-    public void ReturnBarcodeResultsAsync(String text)
+    public void ReturnMrzResultsAsync(string results)
     {
-        result = text;
+        string[] lines = results.Split("\n");
+        MrzResult mrzResult = MrzParser.Parse(lines);
+
+        result = new MarkupString(mrzResult.ToString().Replace("\n", "<br>"));
         StateHasChanged();
     }
 

@@ -55,13 +55,16 @@ function drawOverlay(points, text) {
     }
 }
 
-function drawResults(results) {
+function showResults(results) {
     try {
+        let txts = [];
         for (let result of results) {
             if (result.lineResults.length == 2) {
                 let lines = result.lineResults;
                 let line1 = lines[0].text;
                 let line2 = lines[1].text;
+                txts.push(line1);
+                txts.push(line2);
                 console.log(line1);
                 console.log(line2);
                 // document.getElementById('result').innerHTML = extractMRZInfo(line1, line2);
@@ -73,6 +76,9 @@ function drawResults(results) {
                 let line1 = lines[0].text;
                 let line2 = lines[1].text;
                 let line3 = lines[2].text;
+                txts.push(line1);
+                txts.push(line2);
+                txts.push(line3);
                 console.log(line1);
                 console.log(line2);
                 console.log(line3);
@@ -80,6 +86,12 @@ function drawResults(results) {
                 drawOverlay(lines[0].location.points, line1);
                 drawOverlay(lines[1].location.points, line2);
                 drawOverlay(lines[2].location.points, line3);
+            }
+        }
+
+        if (txts.length > 0) {
+            if (dotnetHelper) {
+                dotnetHelper.invokeMethodAsync('ReturnMrzResultsAsync', txts.join('\n'));
             }
         }
 
@@ -94,31 +106,12 @@ function decodeImage(dotnetRef, url, data) {
         updateOverlay(img.width, img.height);
         if (recognizer) {
             recognizer.recognize(data).then(function (results) {
-                drawResults(results);
-                returnResultsAsString(dotnetRef, results);
+                showResults(results);
             });
 
         }
     }
     img.src = url
-}
-
-function returnResultsAsString(dotnetRef, results) {
-    let txts = [];
-    try {
-        for (let i = 0; i < results.length; ++i) {
-            txts.push(results[i].mrzText);
-        }
-        let mrzresults = txts.join(', ');
-        if (txts.length == 0) {
-            mrzresults = 'No mrz found';
-        }
-
-        if (dotnetRef) {
-            dotnetRef.invokeMethodAsync('ReturnMrzResultsAsync', mrzresults);
-        }
-    } catch (e) {
-    }
 }
 
 function updateResolution() {
@@ -136,29 +129,6 @@ function listCameras(deviceInfos) {
         option.text = deviceInfo.label;
         cameraInfo[deviceInfo.deviceId] = deviceInfo;
         videoSelect.appendChild(option);
-    }
-}
-
-function showResults(results) {
-    clearOverlay();
-
-    let txts = [];
-    try {
-        let localization;
-        if (results.length > 0) {
-            for (var i = 0; i < results.length; ++i) {
-                txts.push(results[i].mrzText);
-                localization = results[i].localizationResult;
-                drawOverlay(localization, results[i].mrzText);
-            }
-
-            if (dotnetHelper) {
-                returnResultsAsString(dotnetHelper, results);
-            }
-        }
-
-    } catch (e) {
-        alert(e);
     }
 }
 
@@ -209,6 +179,7 @@ window.jsFunctions = {
         return result;
     },
     initReader: async function (dotnetRef) {
+        dotnetHelper = dotnetRef;
         if (recognizer != null) {
             recognizer.stopScanning();
         }
@@ -240,7 +211,7 @@ window.jsFunctions = {
 
             recognizer.onImageRead = results => {
                 clearOverlay();
-                drawResults(results);
+                showResults(results);
             };
             enhancer.on("played", playCallBackInfo => {
                 updateResolution();

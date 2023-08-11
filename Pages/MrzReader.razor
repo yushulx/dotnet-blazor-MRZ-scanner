@@ -1,23 +1,25 @@
 ﻿@page "/mrzreader"
 @inject IJSRuntime JSRuntime
+@using Dynamsoft
 
 @* <InputFile OnChange="LoadImage" /> *@
 <button @onclick="ReadMrz">Load file</button>
-<p class="p-result">@result</p>
 
-<div id="imageview">
-    <img id="image" />
-    <canvas id="overlay"></canvas>
+<div class="container">
+    <div id="imageview">
+        <img id="image" />
+        <canvas id="overlay"></canvas>
+
+    </div>
+    <div class="mrz-result">@result</div>
 </div>
-
 @code {
-    String result = "";
+    private MarkupString result = new MarkupString("");
     private DotNetObjectReference<MrzReader>? objRef;
 
-    @* https://docs.microsoft.com/en-us/aspnet/core/blazor/images?view=aspnetcore-6.0 *@
     private async Task LoadImage(InputFileChangeEventArgs e)
     {
-        result = "";
+        result = new MarkupString("");
 
         var imageFile = e.File;
         var jsImageStream = imageFile.OpenReadStream(1024 * 1024 * 20);
@@ -43,14 +45,18 @@
 
     public async Task ReadMrz()
     {
+        result = new MarkupString("");
         await JSRuntime.InvokeVoidAsync(
         "jsFunctions.selectFile", objRef, "overlay", "image");
     }
 
     [JSInvokable]
-    public void ReturnMrzResultsAsync(String text)
+    public void ReturnMrzResultsAsync(string results)
     {
-        result = text;
+        string[] lines = results.Split("\n");
+        MrzResult mrzResult = MrzParser.Parse(lines);
+
+        result = new MarkupString(mrzResult.ToString().Replace("\n", "<br>"));
         StateHasChanged();
     }
 

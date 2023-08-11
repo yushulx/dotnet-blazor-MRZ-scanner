@@ -1,13 +1,14 @@
 #imageview {
     position: relative;
     width: 40vw;
+    margin-right: 20px;
 }
 
 #image {
     position: relative;
     width: 100%;
     height: 100%;
-    display: none
+    display: none;
 }
 
 #overlay {
@@ -19,7 +20,17 @@
     object-fit: contain;
 }
 
-.p-result {
+.mrz-result {
+    /* position: relative; */
     color: red;
     font-style: italic;
+    /* position: absolute;  
+    z-index: 1000;
+    top: 10px;
+    left: 10px; */
+}
+
+.container {
+    display: flex; /* Set the container to use flexbox */
+    margin: 0;
 }
