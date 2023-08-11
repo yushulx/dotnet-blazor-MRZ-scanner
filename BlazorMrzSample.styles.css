@@ -27,13 +27,14 @@
 #imageview[b-tp9v4ioquk] {
     position: relative;
     width: 40vw;
+    margin-right: 20px;
 }
 
 #image[b-tp9v4ioquk] {
     position: relative;
     width: 100%;
     height: 100%;
-    display: none
+    display: none;
 }
 
 #overlay[b-tp9v4ioquk] {
@@ -45,15 +46,26 @@
     object-fit: contain;
 }
 
-.p-result[b-tp9v4ioquk] {
+.mrz-result[b-tp9v4ioquk] {
+    /* position: relative; */
     color: red;
     font-style: italic;
+    /* position: absolute;  
+    z-index: 1000;
+    top: 10px;
+    left: 10px; */
+}
+
+.container[b-tp9v4ioquk] {
+    display: flex; /* Set the container to use flexbox */
+    margin: 0;
 }
 /* /Pages/MrzScanner.razor.rz.scp.css */
 #videoview[b-i0bi81942m] {
     position: relative;
     width: 100%;
     height: 60vh;
+    margin-right: 20px;
 }
 
 #videoContainer[b-i0bi81942m] {
@@ -71,6 +83,21 @@
     height: 100%;
     z-index: 2;
     object-fit: contain
+}
+
+.mrz-result[b-i0bi81942m] {
+    /* position: relative; */
+    color: red;
+    font-style: italic;
+    /* position: absolute;  
+    z-index: 1000;
+    top: 10px;
+    left: 10px; */
+}
+
+.container[b-i0bi81942m] {
+    display: flex; /* Set the container to use flexbox */
+    margin: 0;
 }
 /* /Shared/MainLayout.razor.rz.scp.css */
 .page[b-2gmd0sqqlj] {
