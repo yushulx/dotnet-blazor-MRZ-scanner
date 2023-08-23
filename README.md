@@ -6,7 +6,7 @@ https://github.com/yushulx/dotnet-blazor-MRZ-scanner/assets/2202306/af19cdb7-958
 ## Try Online Demo
 [https://yushulx.me/dotnet-blazor-MRZ-scanner/](https://yushulx.me/dotnet-blazor-MRZ-scanner/)
 
-## Gettting Started
+## Getting Started
 1. Request a [free trial license](https://www.dynamsoft.com/customer/license/trialLicense?product=dlr&utm_source=github&utm_campaign=dotnet-blazor-mrz-scanner) of Dynamsoft Label Recognizer.
 2. Update the license key in `Index.razor`:
     
